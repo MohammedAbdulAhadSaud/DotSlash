@@ -1,4 +1,4 @@
-# DotSlash../
+# DotSlash ../..
 
 A professional-grade path traversal and local file inclusion (LFI) scanner written in Python 3, built for bug bounty hunting and authorized penetration testing. Designed to integrate into recon pipelines via stdin piping, with concurrent multi-host support and structured reporting.
 
