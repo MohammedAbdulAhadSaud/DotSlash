@@ -80,9 +80,9 @@ The tool was built to reduce manual enumeration work during bug bounty hunting, 
 **Requirements:** Python 3.8+
 
 ```bash
-git clone https://github.com/yourname/DotSlash.git
+git clone https://github.com/MohammedAbdulAhadSaud/DotSlash
 cd DotSlash
-pip install requests beautifulsoup4
+pip install -r requirements.txt
 ```
 
 `beautifulsoup4` is optional but recommended — without it the crawler falls back to regex-based HTML parsing.
@@ -92,7 +92,7 @@ pip install requests beautifulsoup4
 ## Usage
 
 ```
-python3 DotSlash_final.py [options] --i-have-authorization
+python3  DotSlash.py [options] --i-have-authorization
 ```
 
 ### Arguments
@@ -234,7 +234,7 @@ All three report formats are written after every scan.
 **Recommended settings for real targets:**
 
 ```bash
-python3 DotSlash_final.py \
+python3  DotSlash.py \
   -u "https://target.example.com" \
   --cookies "session=YOUR_COOKIE" \
   --rps 2 \
@@ -260,28 +260,22 @@ Keep `--rps` low (2–3) and threads low (3–5). Most programs will invalidate 
 ## Examples
 
 ```bash
-# PortSwigger Web Security Academy labs
-python3 DotSlash_final.py \
-  -u "https://YOUR-LAB-ID.web-security-academy.net" \
-  --cookies "session=TOKEN" \
-  --rps 3 -t 3 \
-  --i-have-authorization
 
 # Pipe from gau (fetch known URLs from web archives)
-gau target.com | python3 DotSlash_final.py -t 15 --i-have-authorization
+gau target.com | python3  DotSlash.py -t 15 --i-have-authorization
 
 # Pipe from katana (active crawler)
-katana -u https://target.com -silent | python3 DotSlash_final.py --i-have-authorization
+katana -u https://target.com -silent | python3  DotSlash.py --i-have-authorization
 
 # Pipe from httpx (filter live hosts from a subdomain list)
-cat subdomains.txt | httpx -silent | python3 DotSlash_final.py \
+cat subdomains.txt | httpx -silent | python3  DotSlash.py \
   --force-append -t 20 --i-have-authorization
 
 # CVE probe pass only (fast, low noise)
-python3 DotSlash_final.py -l targets.txt --cve-only --i-have-authorization
+python3  DotSlash.py -l targets.txt --cve-only --i-have-authorization
 
 # With an OpenAPI spec and Burp proxy
-python3 DotSlash_final.py -u https://api.target.com \
+python3  DotSlash.py -u https://api.target.com \
   --openapi swagger.json \
   --proxy http://127.0.0.1:8080 \
   --checkpoint api_scan.ckpt \
@@ -289,12 +283,12 @@ python3 DotSlash_final.py -u https://api.target.com \
   --i-have-authorization
 
 # Resume an interrupted scan
-python3 DotSlash_final.py -u https://target.com \
+python3  DotSlash.py -u https://target.com \
   --checkpoint scan.ckpt \
   --i-have-authorization
 
 # Blind timing oracle for applications with no visible output
-python3 DotSlash_final.py -u "https://target.com/load?template=main" \
+python3  DotSlash.py -u "https://target.com/load?template=main" \
   --blind-timing \
   --i-have-authorization
 ```
