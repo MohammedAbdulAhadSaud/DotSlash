@@ -1,13 +1,11 @@
 #!/usr/bin/env python3
 """
 ================================================================================
-PathScan v5.0 — Professional Path Traversal & LFI Scanner (FINAL)
+DotSlash — Professional Path Traversal & LFI Scanner 
 Bug Bounty / VDP Edition — stdin-pipe compatible, concurrent multi-host
 ================================================================================
 
-AUTHORIZED USE ONLY. Only run against:
-  - Your own infrastructure, OR
-  - Assets explicitly in-scope under a published bug bounty / VDP program
+AUTHORIZED USE ONLY...
 
 Unauthorized scanning violates the CFAA, Computer Misuse Act, and equivalent
 laws worldwide. The --i-have-authorization flag is not a waiver — you are
@@ -15,9 +13,9 @@ personally responsible for confirming scope before running.
 
 Dependencies: pip install requests beautifulsoup4
 Usage:
-  python3 pathscan_final.py -u "https://target.com/view?file=test"
-  cat urls.txt | python3 pathscan_final.py --i-have-authorization
-  python3 pathscan_final.py -l targets.txt --force-append -t 20 -o report.html
+  python3 DotSlash.py -u "https://target.com/view?file=test"
+  cat urls.txt | python3 DotSlash.py --i-have-authorization
+  python3 DotSlash.py -l targets.txt --force-append -t 20 -o report.html
 ================================================================================
 """
 
@@ -1259,28 +1257,28 @@ def main():
         epilog="""
 Examples:
   # Single URL (PortSwigger lab)
-  python3 pathscan_final.py -u "https://LAB-ID.web-security-academy.net" \\
+  python3 DotSlash.py -u "https://LAB-ID.web-security-academy.net" \\
     --cookies "session=TOKEN" --rps 3 -t 3 --i-have-authorization
 
   # Stdin pipe with recon tools
-  cat urls.txt | python3 pathscan_final.py -t 20 --i-have-authorization
-  gau target.com | python3 pathscan_final.py -t 15 --i-have-authorization
-  katana -u https://target.com | python3 pathscan_final.py --i-have-authorization
+  cat urls.txt | python3 DotSlash.py -t 20 --i-have-authorization
+  gau target.com | python3 DotSlash.py -t 15 --i-have-authorization
+  katana -u https://target.com | python3 DotSlash.py --i-have-authorization
 
   # Bulk list + force-append (no existing params)
-  python3 pathscan_final.py -l targets.txt --force-append -t 20 \\
+  python3 DotSlash.py -l targets.txt --force-append -t 20 \\
     -o results.html --i-have-authorization
 
   # OpenAPI spec + Burp proxy + resume checkpoint
-  python3 pathscan_final.py -u https://api.target.com \\
+  python3 DotSlash.py -u https://api.target.com \\
     --openapi swagger.json --proxy http://127.0.0.1:8080 \\
     --checkpoint scan.ckpt -t 5 --i-have-authorization
 
   # CVE probes only (fast recon pass)
-  python3 pathscan_final.py -l targets.txt --cve-only --i-have-authorization
+  python3 DotSlash.py -l targets.txt --cve-only --i-have-authorization
 
   # With blind timing oracle
-  python3 pathscan_final.py -u "https://target.com/view?file=x" \\
+  python3 DotSlash.py -u "https://target.com/view?file=x" \\
     --blind-timing --i-have-authorization
         """)
 
