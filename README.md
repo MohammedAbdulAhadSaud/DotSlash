@@ -25,7 +25,7 @@ A professional-grade path traversal and local file inclusion (LFI) scanner writt
 
 ## Overview
 
-PathScan automates the discovery and verification of path traversal vulnerabilities across all common injection surfaces. It crawls target applications to discover parameters automatically (solving the core problem where most scanners miss endpoints unless you manually specify them), then fuzzes each parameter with a library of 5,061 unique payload vectors across 13 classified attack categories.
+DotSlash automates the discovery and verification of path traversal vulnerabilities across all common injection surfaces. It crawls target applications to discover parameters automatically (solving the core problem where most scanners miss endpoints unless you manually specify them), then fuzzes each parameter with a library of 5,061 unique payload vectors across 13 classified attack categories.
 
 The tool was built to reduce manual enumeration work during bug bounty hunting, particularly for finding file-read primitives that are commonly under-reported because they require knowing obscure encoding bypasses or specific CVE-targeted paths.
 
@@ -80,8 +80,8 @@ The tool was built to reduce manual enumeration work during bug bounty hunting, 
 **Requirements:** Python 3.8+
 
 ```bash
-git clone https://github.com/yourname/pathscan.git
-cd pathscan
+git clone https://github.com/yourname/DotSlash.git
+cd DotSlash
 pip install requests beautifulsoup4
 ```
 
@@ -92,7 +92,7 @@ pip install requests beautifulsoup4
 ## Usage
 
 ```
-python3 pathscan_final.py [options] --i-have-authorization
+python3 DotSlash_final.py [options] --i-have-authorization
 ```
 
 ### Arguments
@@ -125,7 +125,7 @@ python3 pathscan_final.py [options] --i-have-authorization
 
 ## Payload Classes
 
-PathScan generates 5,061 unique payload vectors across 13 classified categories.
+DotSlash generates 5,061 unique payload vectors across 13 classified categories.
 
 | Class | Count | Description |
 |---|---|---|
@@ -234,7 +234,7 @@ All three report formats are written after every scan.
 **Recommended settings for real targets:**
 
 ```bash
-python3 pathscan_final.py \
+python3 DotSlash_final.py \
   -u "https://target.example.com" \
   --cookies "session=YOUR_COOKIE" \
   --rps 2 \
@@ -261,27 +261,27 @@ Keep `--rps` low (2–3) and threads low (3–5). Most programs will invalidate 
 
 ```bash
 # PortSwigger Web Security Academy labs
-python3 pathscan_final.py \
+python3 DotSlash_final.py \
   -u "https://YOUR-LAB-ID.web-security-academy.net" \
   --cookies "session=TOKEN" \
   --rps 3 -t 3 \
   --i-have-authorization
 
 # Pipe from gau (fetch known URLs from web archives)
-gau target.com | python3 pathscan_final.py -t 15 --i-have-authorization
+gau target.com | python3 DotSlash_final.py -t 15 --i-have-authorization
 
 # Pipe from katana (active crawler)
-katana -u https://target.com -silent | python3 pathscan_final.py --i-have-authorization
+katana -u https://target.com -silent | python3 DotSlash_final.py --i-have-authorization
 
 # Pipe from httpx (filter live hosts from a subdomain list)
-cat subdomains.txt | httpx -silent | python3 pathscan_final.py \
+cat subdomains.txt | httpx -silent | python3 DotSlash_final.py \
   --force-append -t 20 --i-have-authorization
 
 # CVE probe pass only (fast, low noise)
-python3 pathscan_final.py -l targets.txt --cve-only --i-have-authorization
+python3 DotSlash_final.py -l targets.txt --cve-only --i-have-authorization
 
 # With an OpenAPI spec and Burp proxy
-python3 pathscan_final.py -u https://api.target.com \
+python3 DotSlash_final.py -u https://api.target.com \
   --openapi swagger.json \
   --proxy http://127.0.0.1:8080 \
   --checkpoint api_scan.ckpt \
@@ -289,12 +289,12 @@ python3 pathscan_final.py -u https://api.target.com \
   --i-have-authorization
 
 # Resume an interrupted scan
-python3 pathscan_final.py -u https://target.com \
+python3 DotSlash_final.py -u https://target.com \
   --checkpoint scan.ckpt \
   --i-have-authorization
 
 # Blind timing oracle for applications with no visible output
-python3 pathscan_final.py -u "https://target.com/load?template=main" \
+python3 DotSlash_final.py -u "https://target.com/load?template=main" \
   --blind-timing \
   --i-have-authorization
 ```
